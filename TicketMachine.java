@@ -99,4 +99,13 @@ public class TicketMachine
         balance = 0;
         return amountToRefund;
     }
+    /**
+     * Return the money missing to print the ticket
+     */
+    public int getAmountLeftToPay()
+    {
+        int amountLeftToPay;
+        amountLeftToPay = (price - balance);
+        return amountLeftToPay;
+    }
 }
