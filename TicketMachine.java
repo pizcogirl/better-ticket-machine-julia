@@ -22,20 +22,30 @@ public class TicketMachine
 
     /**
      * Create a machine that issues tickets of the given price.
+     * You can give a discount of 10% on tickets with the giveDiscount.
      */
-    public TicketMachine(int cost)
+    public TicketMachine(int cost, boolean giveDiscount)
     {
         price = cost;
         balance = 0;
         total = 0;
+        discount = giveDiscount;
     }
 
     /**
-     * @Return The price of a ticket.
+     * @Return The price of a ticket. If discount is actived, 
+     * it return the discounted price
      */
     public int getPrice()
     {
-        return price;
+        if (discount == true) {
+            int discountPrice;
+            discountPrice = (price * 90)/100;
+            return discountPrice;
+        }
+        else {
+            return price;
+        }
     }
 
     /**
@@ -62,7 +72,7 @@ public class TicketMachine
         }
     }
     /**
-     * If true, add a discount to the price.
+     * Active or disable the discount of 10% when printing a ticket
      */
     public void giveDiscount()
     {
@@ -73,14 +83,15 @@ public class TicketMachine
      * Print a ticket if enough money has been inserted, and
      * reduce the current balance by the ticket price. Print
      * an error message if more money is required.
+     * If discount is active, it will print a ticket with a 10% discount.
      */
     public void printTicket()
     {
-        if(balance >= price) {
-            if (discount == true)
-            {
-                int discountPrice;
-                discountPrice = (price * 90)/100;
+        int discountPrice;
+        discountPrice = (price * 90)/100;
+        
+        if(discount == true && balance >= discountPrice)
+        {
             // Simulate the printing of a ticket.
             System.out.println("##################");
             System.out.println("# The BlueJ Line");
@@ -94,8 +105,15 @@ public class TicketMachine
             // Reduce the balance by the prince.
             balance = balance - discountPrice;
         }
-        else if (balance >=price)
-        {
+        else if (discount == true) {
+            // Print the amount of money needed to print a ticket 
+            // if discount is applied
+            int amountLeftToPay;
+            amountLeftToPay = (discountPrice - balance);
+            System.out.println("You must insert at least: " +
+                               amountLeftToPay + " more cents.");
+        }
+        else if (balance >= price) {
             // Simulate the printing of a ticket.
             System.out.println("##################");
             System.out.println("# The BlueJ Line");
@@ -108,15 +126,14 @@ public class TicketMachine
             total = total + price;
             // Reduce the balance by the prince.
             balance = balance - price;
-        }
+        } 
         else {
+             // Print the amount of money needed to print a ticket 
             int amountLeftToPay;
             amountLeftToPay = (price - balance);
             System.out.println("You must insert at least: " +
-                               amountLeftToPay + " more cents.");
-                    
+                               amountLeftToPay + " more cents."); 
         }
-    }
     }
 
     /**
