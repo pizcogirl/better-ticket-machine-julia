@@ -83,9 +83,9 @@ public class TicketMachine
      * Print a ticket if enough money has been inserted, and
      * reduce the current balance by the ticket price. Print
      * an error message if more money is required.
-     * If discount is active, it will print a ticket with a 10% discount.
+     * It will print a ticket with a 10% discount.
      */
-    public void printTicket()
+    public void printDiscountTicket()
     {
         
         if (discount == true)
@@ -119,8 +119,18 @@ public class TicketMachine
         }
         else
         {
+            // If theres no discount active, print an informative msg
             System.out.println ("This machine doesnt have discount active.");
-            if (balance >= price) 
+        }
+    }
+    /**
+     * Print a ticket if enough money has been inserted, and
+     * reduce the current balance by the ticket price. Print
+     * an error message if more money is required.
+     */
+    public void printTicket()
+    {
+        if (balance >= price) 
             {
                 // Simulate the printing of a ticket.
                 System.out.println("##################");
@@ -144,7 +154,6 @@ public class TicketMachine
                                amountLeftToPay + " more cents."); 
             }
         }
-    }
 
     /**
      * Return the money in the balance.
