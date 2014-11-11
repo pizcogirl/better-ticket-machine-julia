@@ -19,10 +19,10 @@ public class TicketMachine
     private int total;
     // Add a boolean to make the machine print tickets with a discount.
     private boolean discount;
-
+   
     /**
      * Create a machine that issues tickets of the given price.
-     * You can give a discount of 10% on tickets with the giveDiscount.
+     * You can give a discount with the giveDiscount of a given discount.
      */
     public TicketMachine(int cost, boolean giveDiscount)
     {
@@ -87,52 +87,62 @@ public class TicketMachine
      */
     public void printTicket()
     {
-        int discountPrice;
-        discountPrice = (price * 90)/100;
         
-        if(discount == true && balance >= discountPrice)
+        if (discount == true)
         {
-            // Simulate the printing of a ticket.
-            System.out.println("##################");
-            System.out.println("# The BlueJ Line");
-            System.out.println("# Ticket");
-            System.out.println("# " + discountPrice + " cents.");
-            System.out.println("##################");
-            System.out.println();
+            int discountPrice;
+            discountPrice = (price * 90)/100;
+            if(balance >= discountPrice)
+            {
+                // Simulate the printing of a ticket.
+                System.out.println("##################");
+                System.out.println("# The BlueJ Line");
+                System.out.println("# Ticket");
+                System.out.println("# " + discountPrice + " cents.");
+                System.out.println("##################");
+                System.out.println();
 
-            // Update the total collected with the price.
-            total = total + discountPrice;
-            // Reduce the balance by the prince.
-            balance = balance - discountPrice;
-        }
-        else if (discount == true) {
-            // Print the amount of money needed to print a ticket 
-            // if discount is applied
-            int amountLeftToPay;
-            amountLeftToPay = (discountPrice - balance);
-            System.out.println("You must insert at least: " +
+                // Update the total collected with the price.
+                total = total + discountPrice;
+                // Reduce the balance by the prince.
+                balance = balance - discountPrice;
+            }
+            else 
+            {
+                // Print the amount of money needed to print a ticket 
+                // if discount is applied
+                int amountLeftToPay;
+                amountLeftToPay = (discountPrice - balance);
+                System.out.println("You must insert at least: " +
                                amountLeftToPay + " more cents.");
+             }
         }
-        else if (balance >= price) {
-            // Simulate the printing of a ticket.
-            System.out.println("##################");
-            System.out.println("# The BlueJ Line");
-            System.out.println("# Ticket");
-            System.out.println("# " + price + " cents.");
-            System.out.println("##################");
-            System.out.println();
+        else
+        {
+            System.out.println ("This machine doesnt have discount active.");
+            if (balance >= price) 
+            {
+                // Simulate the printing of a ticket.
+                System.out.println("##################");
+                System.out.println("# The BlueJ Line");
+                System.out.println("# Ticket");
+                System.out.println("# " + price + " cents.");
+                System.out.println("##################");
+                System.out.println();
 
-            // Update the total collected with the price.
-            total = total + price;
-            // Reduce the balance by the prince.
-            balance = balance - price;
-        } 
-        else {
-             // Print the amount of money needed to print a ticket 
-            int amountLeftToPay;
-            amountLeftToPay = (price - balance);
-            System.out.println("You must insert at least: " +
+                // Update the total collected with the price.
+                total = total + price;
+                // Reduce the balance by the prince.
+                balance = balance - price;
+            } 
+            else 
+            {
+                // Print the amount of money needed to print a ticket 
+                int amountLeftToPay;
+                amountLeftToPay = (price - balance);
+                System.out.println("You must insert at least: " +
                                amountLeftToPay + " more cents."); 
+            }
         }
     }
 
@@ -162,8 +172,8 @@ public class TicketMachine
     public int emptyMachine ()
     {
         int moneyInsideTheMachine;
-        moneyInsideTheMachine = balance;
-        balance = 0;
+        moneyInsideTheMachine = total;
+        total = 0;
         return moneyInsideTheMachine;
     }
 }
